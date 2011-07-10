@@ -1,0 +1,17 @@
+body {
+-x-system-font:none;
+font-family:'Gill Sans','Gill Sans MT',Corbel,Helvetica,'Nimbus Sans L',sans-serif;
+font-size:medium;
+font-size-adjust:none;
+font-stretch:normal;
+font-style:normal;
+font-variant:normal;
+font-weight:normal;
+line-height:1.75;
+word-spacing:0.1em;
+}
+html {
+color:#222222;
+}
+ol{margin:1.75em 0;font-size:medium}html{background:#fff;color:#222}body{margin:1.75em 28px}.c{clear:both;text-align:center}.c{margin:2.154em 0}form
+div{float:right}a{text-decoration:none}a:link{color:steelblue}a:visited{color:#b44582}

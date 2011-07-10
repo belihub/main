@@ -1,0 +1,365 @@
+<html>
+
+	<head><title> help-file </title></head>
+	
+    <link rel="stylesheet" type="text/css" href="style.css">
+	<br/>
+	
+	<h2> general help file
+				</i></h2>
+	<script type="text/javascript">
+<!--
+    function toggle_visibility(id) {
+       var e = document.getElementById(id);
+       if(e.style.display == 'block')
+          e.style.display = 'none';
+       else
+          e.style.display = 'block';
+    }
+//-->
+</script>
+
+<a href="#" onclick="toggle_visibility('1');">about/now</a></br>
+<div id="1" style="display:none">NOTE: THIS IS AN OLD FILE FROM THE PREVIOUS UBUNTU INSTALLATION, 8.04, WHICH HAS BEEN MODIFIED
+<pre>
+sshfs darthvader@dhcp29:/media fusa
+
+scp -r shankar/* shankar@people:~/public_html
+
+scp -r shankar/assignments* shankar@people:~/public_html/assignments
+</pre>
+</div>
+
+<a href="#" onclick="toggle_visibility('1.5');">comp_hardware/Ubuntu</a></br>
+<div id="1.5" style="display:none">
+<pre>
+To get sound working in the headphones for Ubuntu 11.04 on the asus-p52f, type in terminal:
+"gksudo gedit /etc/modprobe.d/alsa-base.conf"
+At the bottom of the text file that opened, type:
+"options snd-hda-intel model=hp-laptop"
+restart.
+
+The required information to get Thunderbird working for the IMSc mail is that the mail server in both cases is banyan.imsc.res.in , and that they requre normal authentication (with a password)
+everything else is correct by default
+
+to get flash working on ubuntu 11.04 64-bit, download the 64-bit beta version from Adobe's website, extract and sudo-copy it to /usr/lib64/mozilla/plugins and restart firefox.
+
+If you want Firefox to do a "I am Feeling Lucky" style Google search, use this value for keyword.URL:
+http://www.google.com/search?btnI=I%27m+Feeling+Lucky&q=
+Also make sure that the value of keyword.enabled is set to TRUE
+</pre>
+</div>
+
+<a href="#" onclick="toggle_visibility('2');">general coding</a></br>
+<div id="2" style="display:none">
+
+<a href="imsccompusage.html"> >MatScience computer usage instructions (for simulation)</a><br>
+
+<a href="GSL.html"> >GSL: linking, compiling, running</a><br>
+
+<pre>
+To keep a program running while logged out, say out of a remote terminal:
+
+Just type “screen -R -D” and then start working as you normally would. When you’re ready to quit, you can detach with “Control-A D”. Screen keeps running. When you log in again later, you can type “screen -R -D” and re-attach to the screen session
+
+Tunnelling: Do:
+
+ssh -fND 6060 belliappa@as2
+
+restart firefox.
+</pre>
+</div>
+
+
+
+<a href="#" onclick="toggle_visibility('3');">transferring files between computers</a></br>
+<div id="3" style="display:none">
+<pre>
+Goto Places -> Connect to server -> choose option SSH -> type belliappa@as2
+
+push:
+ssh target_address cat <localfile ">" remotefile
+
+pull:
+ssh target_address cat remotefile > localfile
+
+
+OR
+
+push: 
+scp filename me@remotehost:~/dirname
+#to copy all files in local subdir to dir in remotehost:#
+scp -r subdirname/* me@remotehost:~/dirname
+
+pull:
+scp "me@remotehost:~/dirname/filename" ./
+
+eg. pull:
+ssh belliappa@ncsc0 cat g5.dat > Glacier/g5.dat
+scp "shankar@people:~/public_html/Welcome.html" ./
+ssh belliappa@imsc9 cat /home/belliappa/now/umbrella-nematic/cv.dat > data.dat
+
+eg.push:
+scp -r shankar/assignments/* shankar@people:~/public_html/assignments
+scp -r Projects/ising/now/simple_ising belliappa@imsc9:/compute/imsc9/belliappa/now
+</pre>
+</div>
+
+<a href="#" onclick="toggle_visibility('4');">Gnuplot</a></br>
+<div id="4" style="display:none">
+<pre>
+To fit a graph: eg.
+
+> gnuplot
+
+$p 'energy3' every ::1::50 u 1:3 notitle
+
+$f(x) = a*x**4 + b*x**3 + c*x**2 + d*x + e
+
+$fit f(x) 'energy3' every ::1::50 u 1:3 via a,b,c,d,e
+
+$rep f(x) title "-75.03T^4 + 823.173T^3 -1388.05T^2 + 878.37T - 158.794"
+
+to plot into a file: eg.
+
+$ gnuplot ablation.gnu > ablation.png
+
+for code completion, install rlwrap and say
+
+$ rlwrap -a -c gnuplot
+
+as above, for compiling, executing and plotting in one line:
+
+gcc -lm glacier.c; ./a.out; echo 'plot "g1.dat" using 1:3' | gnuplot -persist
+</pre>
+</div>
+
+<a href="#" onclick="toggle_visibility('9');">C</a></br>
+<div id="9" style="display:none">
+
+<a href="headers.html"> >user-defined header files</a><br>
+
+<pre>
+for running C code with math functions, do:
+
+gcc -lm filename.c
+
+for running C code using the graphics package SVGAlib, do:
+
+gcc -O3 filename.c -lvga
+
+To compile, execute and produce a beep:
+
+gcc -lm glacierscaled.c; ./a.out; aplay /usr/share/sounds/phone.wav
+
+to run filename.c with the c debugger gdb, do:
+
+gcc -g filename.c
+
+gdb a.out
+
+you will get the command prompt:
+
+(gdb)
+
+now to insert a breakpoint at line 15 do:
+
+b 15
+
+and run the program by typing:
+
+r
+
+print the current value of any variablename by typing:
+
+p variablename
+
+continue with the program execution by typing:
+
+c
+
+quit by typing:
+
+q
+
+</pre>
+</div>
+
+<a href="#" onclick="toggle_visibility('9.5');">short git notes</a></br>
+<div id="9.5" style="display:none">
+<pre>
+
+#adding the folder, realising that .dat files weren't ignored, removing the folder from the staging area, updating and 'running' the .gitignore file, adding the folder again, committing everything, pushing everything.
+
+ git add umbrella-nematic-GLL/current-GLL
+
+git status
+
+git rm -r --cached umbrella-nematic-GLL/current-GLL
+
+git config --global core.excludesfile ~/.gitignore
+
+git add umbrella-nematic-GLL/current-GLL
+
+git status
+
+git commit -m "my first big commit"
+
+git push origin master
+
+</pre>
+</div>
+
+<a href="#" onclick="toggle_visibility('6');">proxy server howto</a></br>
+<div id="6" style="display:none">
+<pre>
+i got wget (used in installing msttcorefonts, installing firefox through ubuntuzilla and anything else that uses wget) working by substituting, in /etc/wgetrc, 
+>#use_proxy = on 
+with 
+>use_proxy = off
+
+to enable other non-socks-enabled programs to use socks proxy, install tsocks:
+
+suo apt-get install tsocks
+
+then delete everything in /etc/tsocks.conf except for
+>server = 127.0.0.1
+>server_type = 5
+>server_port = 6060
+
+then, after SSH -D'ing, run in a terminal, for example, 
+
+>sudo tsocks apt-get update 
+
+instead of
+
+>sudo apt-get update 
+</pre>
+</div>
+
+
+<a href="#" onclick="toggle_visibility('7');">computese </a></br>
+<div id="7" style="display:none">
+<pre>
+to see running processes in a sortable listing with text graphs of CPU and memory usage, do:
+
+>htop
+
+if you want killing of root processes enabled, do:
+
+>sudo htop
+
+--------------------------------------------
+
+terminal commands:
+
+software sources:
+software-properties-gtk
+
+synaptic:
+synaptic
+
+update manager:
+update-manager
+
+hardware drivers:
+jockey-gtk
+
+IDLE 3:
+idle3 -n
+
+---------------------------------------------
+
+To see the sources file of Ubuntu:
+
+gedit /etc/apt/sources.list
+
+to see and _edit_ it:
+
+sudo gedit /etc/apt/sources.list
+
+adding a gpg key: if for example the line added in sources.list looks like this,
+
+deb http://ppa.launchpad.net/c-korn/ubuntu hardy main
+
+then type this in the browser's address bar:
+
+https://launchpad.net/~c-korn/+archive
+
+then,
+
+choose your distro version from the dropdown list
+
+This repository is signed with <CLICK HERE> OpenPGP key blah blah
+
+click there, save the key in a new text file in your home folder, open Adminstration > Software Sources, go to the Authentication tab, click Import Key File, select the text file you saved and click Add.
+
+you're done.
+</pre>
+</div>
+
+<a href="#" onclick="toggle_visibility('8');">quotes</a> </br>
+<div id="8" style="display:none">
+<pre>
+Often it is the means that justify the ends: Goals advance technique and technique survives even when goal structures crumble. 
+
+When we write programs that "learn", it turns out that we do and they don't. 
+
+We are on the verge: Today our program proved Fermat's next-to-last theorem. 
+
+One can't proceed from the informal to the formal by formal means.
+
+--------------------------------------------
+
+Is God willing to prevent evil, but not able? Then he is not omnipotent.
+Is he able, but not willing? Then he is malevolent.
+Is he both able and willing? Then whence cometh evil?
+Is he neither able nor willing? Then why call him God?
+-- (Epicurus) 
+</pre>
+</div>
+
+<a href="#" onclick="toggle_visibility('5');">elec. and comp. assistance</a></br>
+<div id="5" style="display:none">
+<pre>
+electricians:
+
+call 199 from office phone
+
+mangal pandey: 
+
+call 217 from office phone
+</pre>
+</div>
+
+<a href="music.html"> music </a><br>
+
+<a href="#" onclick="toggle_visibility('10');"></a> </br>
+<div id="10" style="display:none">
+<pre>
+
+</pre>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+</body>
+</html>

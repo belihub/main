@@ -1,0 +1,75 @@
+<html>
+
+<head><title>C headers </title></head>
+
+<link rel="stylesheet" type="text/css" href="style2.css">
+
+<a href="helpfile.html"> <IMG STYLE="position:absolute; TOP:20px; LEFT:25px; WIDTH:40px; HEIGHT:40px" SRC="arrow-up.png"> </a>
+
+<body>
+<pre>
+
+
+
+Header files
+Often in large projects it is desireable to separate out the subroutines (which are presumably of a more generic nature) from the main part of the program. As well, it is also often the case that one wants to reuse subroutines in different programs, and copying the code from one program to another, as well as being tedious and prone to error, makes maintainability more difficult. As with the use of modules in Perl, it is possible to separate out the subroutines from the main program into separate files.
+
+Let us consider the previous example:
+
+/* file prog.c */
+#include <stdio.h>
+void sub(int);
+int main(void) {
+  int age = 22;
+  printf("In the main routine, age is %d\n", age);
+  sub(11);
+  return 0;
+}
+void sub(int in) {
+  int age = 33;
+  printf("In the subroutine, you passed in %d, and age is %d\n", in, age);
+}
+
+appearing in, say, a file called prog.c. We can separate out these components into three files as follows. One, called, say, my_subs.h, contains just the subroutine declarations:
+
+/* file my_subs.h */
+void sub(int);
+
+Another, called my_subc.c, contains the code for the subs:
+
+/* file my_subs.c */
+#include "my_subs.h"
+void sub(int in) {
+  int age = 33;
+  printf("In the subroutine, you passed in %d, and age is %d\n", in, age);
+}
+
+The final one, my_prog.c, contains the main program:
+
+/* file my_prog.c */
+#include "my_subs.h"
+int main(void) {
+  int age = 22;
+  printf("In the main routine, age is %d\n", age);
+  sub(11);
+  return 0;
+}
+
+Compiling this involves the following sequence:
+
+  cc -c my_subs.c -I.
+  cc -o my_prog my_prog.c my_subs.o -I.
+
+where the -c option in the first command tells the compiler to just compile the source, and not to make an exectable program (which it can't do due to the lack of a main routine in my_subs.c). The -I switch is used to specify directores to include when looking for header files (in this case, the current directory, denoted by the period, is used). In compiling my_prog.c in the second command, the object file my_subs.o (my_subs.obj on Win32) resulting from the first command is included, enabling the compiler to find the code for the referenced subroutines.
+
+At first glance, splitting the program up this way into three files is more work. The advantage to doing it this way though comes about when
+
+    you want to use the subroutines in diffent programs. For this, you just have to compile the source for the subroutines once, and then link to the resulting object file in any other program you want;
+    you want to change, or add, subroutines, and have those changes be reflected in all other programs. For this, you have to change the source file for the subroutines, recompile that source, and then recompile and relink programs that use them. This can save enormous time, and save a lot of headaches, compared to having to edit the subroutines if the sources appear in each program that uses them.
+
+
+from http://theoryx5.uwinnipeg.ca/programming/node77.html
+</pre>
+</div>
+
+

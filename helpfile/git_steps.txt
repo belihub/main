@@ -1,0 +1,177 @@
+%%%%%%%%%%%%%%%%%%terminal copy-paste%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+belliappa@as188:~$ git config --global user.name "beli"
+belliappa@as188:~$ git config --global user.email "beli.beer@gmail.com"
+belliappa@as188:~$ git config --global color.diff auto
+belliappa@as188:~$ git config --global color.status auto
+belliappa@as188:~$ git config --global color.branch auto
+belliappa@as188:~$ gedit .gitconfig
+belliappa@as188:~$ mkdir projects
+belliappa@as188:~$ cd projects/
+belliappa@as188:~/projects$ git init
+Initialized empty Git repository in /home/belliappa/projects/.git/
+belliappa@as188:~/projects$ git status
+# On branch master
+#
+# Initial commit
+#
+nothing to commit (create/copy files and use "git add" to track)
+belliappa@as188:~/projects$ gedit readme.txt >>type something in readme.txt and save
+belliappa@as188:~/projects$ git status
+# On branch master
+#
+# Initial commit
+#
+# Untracked files:
+#   (use "git add <file>..." to include in what will be committed)
+#
+#	readme.txt
+nothing added to commit but untracked files present (use "git add" to track)
+belliappa@as188:~/projects$ git add readme.txt
+belliappa@as188:~/projects$ git status
+# On branch master
+#
+# Initial commit
+#
+# Changes to be committed:
+#   (use "git rm --cached <file>..." to unstage)
+#
+#	new file:   readme.txt
+#
+belliappa@as188:~/projects$ git commit >>write your comment in the text editor in the terminal
+[master (root-commit) 7e6b14b] Initial commit! testing...
+ 1 files changed, 1 insertions(+), 0 deletions(-)
+ create mode 100644 readme.txt
+
+%%%%%%%%%%%%%%%%%%%%end of terminal copy-paste%%%%%%%%%%%%%%%%%%%%%%%
+
+git has three boxes:
+working directory | staging area | git (commited) directory
+
+$ git add 
+adds file to staging area
+$git commit 
+now commits file; moves it from 'staging area' to 'commit';
+git commit without git add doesn't do anything unless you flag it with -a:
+$git commit -a
+commits file without staging it
+
+$git reset
+removes all files from staging area
+$git reset --hard
+reverts your working copy to the last commit
+
+%%%%%%%%%%%%%%%%%%terminal copy-paste%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+belliappa@as188:/media/5CF6-9205$ mkdir projectbackup
+belliappa@as188:/media/5CF6-9205$ cd projectbackup/
+belliappa@as188:/media/5CF6-9205/projectbackup$ git init --bare
+Initialized empty Git repository in /media/5CF6-9205/projectbackup/
+belliappa@as188:/media/5CF6-9205/projectbackup$ ls
+branches  config  description  HEAD  hooks  info  objects  refs
+
+>>now in our original project directory:
+belliappa@as188:~/projects$ git remote add flashstick /media/5CF6-9205/projectbackup
+>>where flashstick is the name i've given to the remote repo.
+
+>>we now push the changes to the remote repo: 'master' is what we (now) have specified the name of the branch to be.
+belliappa@as188:~/projects$ git push flashstick master
+Counting objects: 6, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (6/6), 442 bytes, done.
+Total 6 (delta 0), reused 0 (delta 0)
+Unpacking objects: 100% (6/6), done.
+To /media/5CF6-9205/projectbackup
+ * [new branch]      master -> master
+ >>now we modify readme.txt:
+ belliappa@as188:~/projects$ gedit readme.txt 
+ >>then check the status:
+belliappa@as188:~/projects$ git status
+# On branch master
+# Changed but not updated:
+#   (use "git add <file>..." to update what will be committed)
+#   (use "git checkout -- <file>..." to discard changes in working directory)
+#
+#	modified:   readme.txt
+#
+# Untracked files:
+#   (use "git add <file>..." to include in what will be committed)
+#
+#	readme.txt~
+no changes added to commit (use "git add" and/or "git commit -a")
+>>we can now commit without staging by:
+belliappa@as188:~/projects$ git commit -a
+[master 35f59e5] next modification
+ 1 files changed, 2 insertions(+), 0 deletions(-)
+ >>and now push the commited version:
+belliappa@as188:~/projects$ git push flashstick 
+>>we don't need to specify the branch because we've already done that.
+Counting objects: 5, done.
+Writing objects: 100% (3/3), 259 bytes, done.
+Total 3 (delta 0), reused 0 (delta 0)
+Unpacking objects: 100% (3/3), done.
+To /media/5CF6-9205/projectbackup
+   73babd3..35f59e5  master -> master
+
+>>now we make a remote repo on a remote server:
+belliappa@as188:~/projects$ssh beli@beli-p52f.local
+
+>>and create a directory for the repo:
+beli@beli-P52F ~ $ mkdir projectserver
+
+>>create a bare and shared repo there:
+beli@beli-P52F ~ $ cd projectserver/
+beli@beli-P52F ~/projectserver $ git init --bare --shared
+Initialized empty shared Git repository in /home/beli/projectserver/
+beli@beli-P52F ~/projectserver $ ls
+branches  config  description  HEAD  hooks  info  objects  refs
+
+>>back in our original project directory, we add the new remote repo, naming it origin:
+belliappa@as188:~/projects$ git remote add origin beli@beli-p52f.local:./projectserver
+belliappa@as188:~/projects$ git push origin master
+beli@beli-p52f.local's password: 
+Counting objects: 9, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (9/9), 669 bytes, done.
+Total 9 (delta 0), reused 0 (delta 0)
+To beli@beli-p52f.local:./projectserver
+ * [new branch]      master -> master
+
+>>pretend to be a different user:
+belliappa@as188:~/projects$ cd 
+belliappa@as188:~$ cp -r projects/ anothercopy
+belliappa@as188:~$ cd anothercopy/
+>>modify readme .txt
+belliappa@as188:~/anothercopy$ gedit readme.txt
+belliappa@as188:~/anothercopy$ git commit -a
+[master 361b7f8] testing remote serwver
+ 1 files changed, 2 insertions(+), 0 deletions(-)
+belliappa@as188:~/anothercopy$ git push origin
+beli@beli-p52f.local's password: 
+Counting objects: 5, done.
+Writing objects: 100% (3/3), 268 bytes, done.
+Total 3 (delta 0), reused 0 (delta 0)
+To beli@beli-p52f.local:./projectserver
+   35f59e5..361b7f8  master -> master
+
+>>come back to the original project directory:
+belliappa@as188:~/anothercopy$ cd ../projects/
+
+>>fetch the project from the remote repo:
+belliappa@as188:~/projects$ git fetch origin
+beli@beli-p52f.local's password: 
+remote: Counting objects: 5, done.
+remote: Total 3 (delta 0), reused 0 (delta 0)
+Unpacking objects: 100% (3/3), done.
+From beli-p52f.local:./projectserver
+   35f59e5..361b7f8  master     -> origin/master
+   
+>>check readme.txt:
+belliappa@as188:~/projects$ gedit readme.txt
+>>the repo's changed but not the local copy; you have to rebase:
+belliappa@as188:~/projects$ git rebase origin/master
+First, rewinding head to replay your work on top of it...
+Fast-forwarded master to origin/master.
+>>now it's changed the local copy.

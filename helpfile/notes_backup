@@ -1,0 +1,584 @@
+NOTE: THIS IS AN OLD FILE FROM THE PREVIOUS UBUNTU INSTALLATION, 8.04, WHICH HAS BEEN MODIFIED
+
+Harman Kardon SoundSticks II
+M Audio Studiophile AV 40
+Panasonic RP-HJE300
+--------------------------------------------
+
+toggle keyboard layout between qwerty and dvorak - scroll lock
+
+sshfs darthvader@dhcp29:/media fusa
+
+scp -r shankar/* shankar@people:~/public_html
+
+scp -r shankar/assignments* shankar@people:~/public_html/assignments
+
+--------------------------------------------
+
+To keep a program running while logged out, say out of a remote terminal:
+
+Just type “screen -R -D” and then start working as you normally would. When you’re ready to quit, you can detach with “Control-A D”. Screen keeps running. When you log in again later, you can type “screen -R -D” and re-attach to the screen session
+
+--------------------------------------------
+for using your own header files, for example a 
+
+for running C code with math functions, do:
+
+gcc -lm filename.c
+
+for running C code using the graphics package SVGAlib, do:
+
+gcc -O3 filename.c -lvga
+
+To compile, execute and produce a beep:
+
+gcc -lm glacierscaled.c; ./a.out; aplay /usr/share/sounds/phone.wav
+
+to run filename.c with the c debugger gdb, do:
+
+gcc -g filename.c
+
+gdb a.out
+
+you will get the command prompt:
+
+(gdb)
+
+now to insert a breakpoint at line 15 do:
+
+b 15
+
+and run the program by typing:
+
+r
+
+print the current value of any variablename by typing:
+
+p variablename
+
+continue with the program execution by typing:
+
+c
+
+quit by typing:
+
+q
+
+--------------------------------------------
+
+Do:
+
+ssh -fND 6060 belliappa@as2
+
+restart firefox.
+
+--------------------------------------------
+
+copying files between comps:
+
+Goto Places -> Connect to server -> choose option SSH -> type belliappa@as2
+
+push:
+ssh target_address cat <localfile ">" remotefile
+
+pull:
+ssh target_address cat remotefile > localfile
+
+
+OR
+
+push: 
+scp filename me@remotehost:~/dirname
+<to copy all files in local subdir to dir in remotehost:>
+scp -r subdirname/* me@remotehost:~/dirname
+
+pull:
+scp "me@remotehost:~/dirname/filename" ./
+
+eg. pull:
+ssh belliappa@ncsc0 cat g5.dat > Glacier/g5.dat
+scp "shankar@people:~/public_html/Welcome.html" ./
+
+eg.push:
+scp -r shankar/assignments/* shankar@people:~/public_html/assignments
+----------------------------------------------
+
+Gnuplot: 
+
+To fit a graph: eg.
+
+> gnuplot
+
+$p 'energy3' every ::1::50 u 1:3 notitle
+
+$f(x) = a*x**4 + b*x**3 + c*x**2 + d*x + e
+
+$fit f(x) 'energy3' every ::1::50 u 1:3 via a,b,c,d,e
+
+$rep f(x) title "-75.03T^4 + 823.173T^3 -1388.05T^2 + 878.37T - 158.794"
+
+to plot into a file: eg.
+
+$ gnuplot ablation.gnu > ablation.png
+
+for code completion, install rlwrap and say
+
+$ rlwrap -a -c gnuplot
+
+as above, for compiling, executing and plotting in one line:
+
+gcc -lm glacier.c; ./a.out; echo 'plot "g1.dat" using 1:3' | gnuplot -persist
+
+--------------------------------------------
+
+electricians:
+
+call 199 from office phone
+
+mangal pandey: 
+
+call 217 from office phone
+
+--------------------------------------------
+
+proxy stuff:
+
+i got wget (used in installing msttcorefonts, installing firefox through ubuntuzilla and anything else that uses wget) working by substituting, in /etc/wgetrc, 
+>#use_proxy = on 
+with 
+>use_proxy = off
+
+to enable other non-socks-enabled programs to use socks proxy, install tsocks:
+
+suo apt-get install tsocks
+
+then delete everything in /etc/tsocks.conf except for
+>server = 127.0.0.1
+>server_type = 5
+>server_port = 6060
+
+then, after SSH -D'ing, run in a terminal, for example, 
+
+>sudo tsocks apt-get update 
+
+instead of
+
+>sudo apt-get update 
+
+--------------------------------------------
+
+terminal commands:
+
+software sources:
+software-properties-gtk
+
+synaptic:
+synaptic
+
+update manager:
+update-manager
+
+hardware drivers:
+jockey-gtk
+
+IDLE 3:
+idle3 -n
+
+--------------------------------------------
+
+to see running processes in a sortable listing with text graphs of CPU and memory usage, do:
+
+>htop
+
+if you want killing of root processes enabled, do:
+
+>sudo htop
+
+--------------------------------------------
+
+Is God willing to prevent evil, but not able? Then he is not omnipotent.
+Is he able, but not willing? Then he is malevolent.
+Is he both able and willing? Then whence cometh evil?
+Is he neither able nor willing? Then why call him God?
+-- (Epicurus) 
+
+Diablo LOD:
+
+Improved GFX (REMEMBER THIS)
+by HoodedMan on Sunday August 3rd 2008, 10:00
+To get higher resolutions and somewhat better GFX you can download the Glide3 to OpenGL wrapper at www.svenswrapper.de/english/index.html
+
+Unzip the download and move the dll and exe into the Diablo 2 directory.
+Now run the executeable "D2VidTst.exe" which runs the video test again. Because of the wrapper, you can now use the glide-renderer -- do this!
+
+Now you can configure the glide wrapper through "glide-init.exe".
+
+For me, Diablo 2 fullscreen did not work until I got this, ran glide-init.exe and selected "Desktop resolution" under "Settings".
+
+This means that the game will take your native resolution, so if you run 1280x1050 then Diablo2 will run in 1280x1050 glory :P
+
+If you have a widescreen, like 1280x800, 1440x900, 1680x1050, 1920x1200 or otherwise, Diablo 2 will run with the maximum 4:3 window it can fit inside of that widescreen, meaning you'll have some black bars on either side.
+
+But the higher resolution is still there so you have a much better view of the game world. It's absolutely awesome ! :)
+
+
+--------------------------------------------
+
+starting ET with bots enabled:
+
+./et + set fs_game omnibot
+
+ading bots in the console:
+
+shift+tilde to get console
+
+/bot addbot 1 2 through 5 to add to axis
+/bot addbot 2 2 through 5 to add to allies
+
+------------------------------------------
+
+To see the sources file of Ubuntu:
+
+gedit /etc/apt/sources.list
+
+to see and _edit_ it:
+
+sudo gedit /etc/apt/sources.list
+
+adding a gpg key: if for example the line added in sources.list looks like this,
+
+deb http://ppa.launchpad.net/c-korn/ubuntu hardy main
+
+then type this in the browser's address bar:
+
+https://launchpad.net/~c-korn/+archive
+
+then,
+
+choose your distro version from the dropdown list
+
+This repository is signed with <CLICK HERE> OpenPGP key blah blah
+
+click there, save the key in a new text file in your home folder, open Adminstration > Software Sources, go to the Authentication tab, click Import Key File, select the text file you saved and click Add.
+
+you're done.
+
+------------------------------------------
+
+short quotes:
+
+Often it is the means that justify the ends: Goals advance technique and technique survives even when goal structures crumble. 
+
+When we write programs that "learn", it turns out that we do and they don't. 
+
+We are on the verge: Today our program proved Fermat's next-to-last theorem. 
+
+One can't proceed from the informal to the formal by formal means. 
+
+------------------------------------------
+
+Music:
+
+imogen heap - glittering cloud
+
+imogen heap - clear the area
+
+jem - 24
+
+september - cry for you
+
+santana feat chad kroeger - into the night
+
+loch - i am kloot
+
+taxi doll - waiting
+
+better than ezra - a lifetime 
+ 
+kate ryan - libertine
+
+keane - is it any wonder?
+
+five for fighting - the riddle
+
+judy torres - faithfully
+
+yael naim - new soul
+
+the bird and the bee - ray gun
+
+gotye - hearts a mess
+
+kenny rogers & the first edition - just dropped in
+
+sean kingston - me love
+
+skye sweetnam - tangled up in me
+
+jason mraz - I'm yours 
+ 
+fort minor & holly brook & jonah matranga - where'd you go 
+
+cascada - everytime we touch
+
+cyndi lauper ft sarah mclachlan - time after time
+
+groove armada - think twice
+
+stereophonics - dakota
+
+five for fighting - the riddle (you and I)
+
+iio - is it love
+
+Before It's Too Late - Goo Goo Dolls
+
+taylor swift - teardrops on my guitar
+
+the fray - how to save a life 
+
+lifehouse - blind
+
+lifehouse - first time
+
+dario g - sunchime
+
+mute math - typical
+
+matchbox twenty - these hard times
+
+sara bareilles - bottle it up 
+
+natasha bedingfield - unwritten
+
+josh hoge - 360
+
+linkin park - shadow of the day
+
+flyleaf - all around me
+
+ray montagne - be here now
+
+the books feat jose gonsalez - cello song
+
+saving jane - come down to me
+
+sister hazel - mandolin moon
+
+fauxliage - draw my life
+
+lesley roy - i'm gone, i'm going
+
+audioslave - like a stone
+
+stacie orrico - i'm not missing you
+
+flobots - handlebars 
+
+mika - grace kelly 
+
+colby caillat - bubbly 
+
+center of the sun (w/ Poe) conjure one
+
+gary jules -  mad world
+
+rufus wainwright - hallelujah 
+
+bob marley - is it love
+
+hans zimmer - you're so cool
+
+my chemical romance - welcome to the black parade
+
+blitzen trapper - furr
+
+traffic - hidden treasure
+
+rob thomas - streetcorner symphony
+
+MIA - paper planes
+
+five for fighting - world
+
+amy macdonald - this is the life
+
+bob baldwin - can you feel it?
+
+[iron & wine &] calexico - dark eyes
+
+snow patrol - the lightening strike
+
+alicia keys - no one
+
+alannah miles - black velvet
+
+amy macdonald - mr. rock and roll
+
+the real tuesday weld - i believe
+
+amadou and mariam - m' bifa balafon
+
+michael franti & the spearhead - say hey
+ 
+James Morrison Feat. Nelly Furtado - Broken Strings
+
+Just Like Heaven - The Cure
+
+Augustine - Vienna Teng
+
+My Medea - Vienna Teng
+
+can't find my way home - eric clapton and steve winwood
+
+trains - porcupine tree
+
+the wailin' jennys - take me home
+
+fideo - yeska
+
+let it be me - ray LaMontagne
+
+neko case - middle cyclone
+
+bo deans - fadeaway
+
+eric hansen - girl
+
+the cat empire - fishies 
+
+poets of the fall - carnival of lust
+
+matson belle - float
+
+Colin Hay - Beautiful World
+
+sufjan stevens - chicago
+
+james mcmurtry - walk between the raindrops
+
+fiona apple - i know
+
+pikkardiyska tertsia - witch's eyes
+
+hooverphonics - we all float
+
+irya's playground - room 54
+
+charlie parker - my little suede shoes
+
+moby - extreme ways
+
+sarah slean - euphoria
+
+the magic numbers - forever lost
+
+anna ternheim - no subtle men
+
+the shins - spilt needles
+
+the shins - new slang
+
+dave brubeck quartet - take five
+
+vienna teng - in another life
+
+kings of leon - use somebody
+
+kings of leon - sex on fire
+
+rico - midnight in ethiopia
+
+supergrass - road to rouen
+
+foo fighters - down in the park
+
+florence and the machine - rabbit heart (raise it up)
+
+the old ceremony - plate tectonics
+
+the wailing jennys - starlight
+
+bruce cockburn - creation dream
+
+metric - collect call
+
+nujabes
+
+spoon - the book I write
+
+noir desir - le vent nous portera
+
+greg kihn - remember
+
+kgb - call it a night
+
+bat for lashes - sleep alone
+
+roy orbison - she's a mystery to me
+
+jaymay - grey or blue
+
+iggy pop - the passenger
+
+cumulus - imogen heap
+
+can't take it in - imogen heap
+
+canvas - imogen heap
+
+earth - imogen heap
+
+norah jones - chasing pirates
+
+okkervil river - lost coastlines
+
+the shins - a comet appears
+
+budy holly - heartbeat
+
+emily haines and the soft skeleton - doctor blind
+
+pop art blue - zero 7
+
+gorrilaz - empire antz
+
+ani difranco - 32 flavours
+
+fleet foxes - mykonos
+
+tracy chapman - telling stories
+
+traffic - low spark of high heeled boys
+
+vienna teng - blue caravan
+
+abra moore - four leaf clover
+
+sivert hoyem - moon landing
+
+low strung - fix you
+
+yo la tengo - here to fall
+
+ludovico einaudi - primavera
+
+nils - soulmates
+
+only in my dreams - acoustic alchemy
+
+amos lee - street corner preacher
+
+grey eye glances - close your eyes
+
+norah jones - chasing pirates
+
+steel pulse - chant a psalm
+
+gravity 180 - moonlight on the water
+
+smoothjazz.com
+
+carpenters - sing
+
+john barry - midnight cowboy

@@ -1,0 +1,31 @@
+<html>
+
+<head><title> short git notes </title></head>
+
+<link rel="stylesheet" type="text/css" href="style2.css">
+
+<a href="helpfile.html"> <IMG STYLE="position:absolute; TOP:20px; LEFT:25px; WIDTH:40px; HEIGHT:40px" SRC="arrow-up.png"> </a>
+
+<body>
+<pre>
+
+#adding the folder, realising that .dat files weren't ignored, removing the folder from the staging area, updating and 'running' the .gitignore file, adding the folder again, committing everything, pushing everything.
+
+ git add umbrella-nematic-GLL/current-GLL
+
+git status
+
+git rm -r --cached umbrella-nematic-GLL/current-GLL
+
+git config --global core.excludesfile ~/.gitignore
+
+git add umbrella-nematic-GLL/current-GLL
+
+git status
+
+git commit -m "my first big commit"
+
+git push origin master
+
+</pre>
+</div>

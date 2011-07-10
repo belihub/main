@@ -1,0 +1,40 @@
+<html>
+
+<head><title>C headers </title></head>
+
+<link rel="stylesheet" type="text/css" href="style2.css">
+
+<a href="helpfile.html"> <IMG STYLE="position:absolute; TOP:20px; LEFT:25px; WIDTH:40px; HEIGHT:40px" SRC="arrow-up.png"> </a>
+
+<body>
+<pre> 
+ 
+ Re: Undefined Reference for GSL library calls
+The best way to get the correct arguments to link the GSL library is with the pkg-config command:
+Code:
+
+$ pkg-config --libs gsl
+
+That will print the options required to link the GSL library. You can also use the --cflags option to get the correct compiler options:
+Code:
+
+$ pkg-config --cflags gsl
+
+(That may just print a blank line, meaning no special options are required, since the header files are in a standard directory.)
+
+To compile and link a program that is contained in a single C file that uses GSL:
+Code:
+
+$ gcc myprogram.c `pkg-config --cflags --libs gsl` -o myprogram
+
+Or, to compile and then link,
+Code:
+
+$ gcc -c myprogram.c `pkg-config --cflags gsl`
+$ gcc myprogram.o `pkg-config --libs gsl` -o myprogram
+
+***MY working EXAMPLE***
+beli@beli-desktop:~/Projects/ising/now/multihist-ising$ gcc gsltest.c -lgsl -lgslcblas
+
+</pre>
+</div>
