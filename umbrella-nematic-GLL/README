@@ -1,0 +1,11 @@
+This is code for simulating the generalised Labwohl-Lasher model using umbrella sampling to cross free energy barriers and the multiple histogram method for optimal data analysis.
+
+The list of programs are as follows:
+1. automate.py copies the code to a remote computing cluster, executes it there and retrieves the results.
+2. just-automate.py runs multiple instances of func-umbrella-nematic.c in parallel if given argument 1, and analyses the output, if given argument 2, using anal-hist.c for calculating relevant quantities from the the probability distrabution P(S) naively, and mhist.c to calculate them optimally using the multiple histogram method. note that the parallel running takes place on a remote host while the analysis takes place on the local machine.
+3. func-umbrella-nematic.c is where the actual simulation of the model happens; it is fed the linear system size N and the inerse temperature \epsilon at which to simulate (and various filenames for its use). It calls functions fit() and a random number generator genrand64_real2(), from proframs fit.c and mt19937-64.c respectively.
+4. fit.c quadratically extrapolates a window of width 'width'
+5. mt19937-64.c is a 64-bit version of Mersenne Twister pseudorandom number generator.
+6. anal-hist.c calculates quantities like the susceptibilities, specific heats and binder cumulants from the the probability distrabution P(S) naively.
+7. -- while mhist.c calculates them optimally using the multiple histogram method (can be further optimised using the correlation time; also, has bad documentation)
+8. there is another program which is not used at present: kink-hist.c does a legendre transform of the restricted free energy of S with its conjugate field (INCOMPLETE - works only sometimes)
